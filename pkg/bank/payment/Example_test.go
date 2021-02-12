@@ -25,3 +25,37 @@ func ExampleMax() {
 
 	// Output: 2
 }
+
+func ExamplePaymentSources()  {
+	payCards := []types.Card{
+		{
+			PAN: "1xxx xxxx xxxx xxxx",
+			Balance: 10_000_00,
+			Active: true,
+		},
+		{
+			PAN: "2xxx xxxx xxxx xxxx",
+			Balance: 5_000_00,
+			Active: true,
+		},
+		{
+			PAN: "3xxx xxxx xxxx xxxx",
+			Balance: 20_000_00,
+			Active: false,
+		},
+		{
+			PAN: "4xxx xxxx xxxx xxxx",
+			Balance: 0,
+			Active: true,
+		},
+	}
+	paySources := PaymentSources(payCards)
+	
+	for _, paySource := range paySources {
+		fmt.Println(paySource.Number)	
+	}
+
+	// Output: 
+	// 1xxx xxxx xxxx xxxx
+	// 2xxx xxxx xxxx xxxx
+}
