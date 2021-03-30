@@ -4,16 +4,12 @@ import (
 	"bank/pkg/bank/types"
 )
 
-const RubCource = 0.1510
-const UsdCource = 11.3200
-
-//Total вычисляет сумму денег на всех активных картах с положительным балансом
-func Total(cards []types.Card)  int64 {
-	sum := int64(0)
-
+// Total вычисляет сумму денег на всех активных картах с положительным балансом
+func Total(cards []types.Card)  types.Money {
+	sum := types.Money(0)
 	for _, card := range cards {
 		if checkOut(card, card.Balance, "") > 0 {
-			sum += int64(card.Balance)
+			sum += card.Balance
 		}
 	}
 	return sum
@@ -50,6 +46,9 @@ func Deposit(card *types.Card, amount types.Money) {
 
 // AddBonus зачисляет бонусные проценты на минимальный остаток счёта (бонус не более 50_000_00 TJS)
 func AddBonus(card *types.Card, percent int, daysInMonth int, daysInYear int) {
+	
+	const RubCource = 0.1510
+	const UsdCource = 11.3200
 
 	amount := ( ( card.MinMoney * types.Money(percent * daysInMonth) ) / types.Money(daysInYear * 100) )
 	
@@ -113,6 +112,8 @@ func checkOut( card types.Card, amount types.Money, operation string ) int {
 
 // inTJS приведёт снимаемые деньги в TJS
 func inTJS(currency types.Currency ,someMoney types.Money) types.Money{
+	const RubCource = 0.1510
+	const UsdCource = 11.3200	
 	switch currency {
 	case types.RUB:
 		return types.Money(float64(someMoney) * RubCource)

@@ -28,11 +28,14 @@ type Card struct {
 	MinMoney	Money
 }
 
+// Payment информация о оплате
 type Payment struct {
 	ID int
 	Amount Money
 }
 
+
+// PaymentSourse информация об источнике оплаты
 type PaymentSource struct {
 	Type string // 'card'
     Number string // номер вида '5058 xxxx xxxx 8888' 
